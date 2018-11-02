@@ -38,7 +38,7 @@ def dijsktra(graph, initial):
     current_weight = visited[min_node]
 
     for edge in graph.edges[min_node]:
-      weight = current_weight + graph.distance[(min_node, edge)]
+      weight = current_weight + graph.distances[(min_node, edge)]
       if edge not in visited or weight < visited[edge]:
         visited[edge] = weight
         path[edge] = min_node
@@ -49,13 +49,24 @@ def dijsktra(graph, initial):
 gr = Graph()
 mode  = 0
 for line in fileinput.input():
+    comp = line.split(" ")
     if line == "\n":
         mode += 1
-    elif mode == 0:
-        comp = line.split(" ")
-        gr.add_node(comp[0])
-        gr.add_node(comp[1])
-        gr.add_edge(comp[0], comp[1], float(comp[2]))
+        continue
+
+    node1 = int(comp[0])
+    node2 = int(comp[1])
+
+    if mode == 0:
+        edge = float(comp[2])
+        gr.add_node(node1)
+        gr.add_node(node2)
+        gr.add_edge(node1, node2, edge)
     elif mode == 1:
-        comp = line.split(" ")
-        print(line)
+        if len(comp) < 3:
+            dist, path = dijsktra(gr, node1)
+            print(dist[node2])
+        else:
+            dist, path = dijsktra(gr, node2)
+
+
