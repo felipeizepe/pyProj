@@ -33,7 +33,7 @@
     <session id="236534237">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.opened" value="2" />
         </counts>
@@ -66,7 +66,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/UberPool.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="157">
@@ -79,7 +79,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/in1.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="201">
@@ -205,7 +205,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1024" height="563" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24925224" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -237,6 +236,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/in1.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="19" column="7" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/UberPool.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="157">
@@ -245,13 +251,6 @@
             <element signature="e#0#16#0" expanded="true" />
             <marker date="1541200615599" expanded="true" signature="443:1102" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/in1.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="19" column="7" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
         </state>
       </provider>
     </entry>
