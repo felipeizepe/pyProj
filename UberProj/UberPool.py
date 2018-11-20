@@ -57,7 +57,7 @@ def inconv(gr,a,b,c):
   inconvTotal = (inconvAB + inconvBC) / inconvAC
   return inconvTotal
 
-#''''
+''''
 #example inconv usage
 grEx = Graph()
 
@@ -76,7 +76,7 @@ grEx.add_edge(0, 1, 2)
 grEx.add_edge(1, 2, 2)
 
 print(inconv(grEx,0,1,2))
-#''''
+''''
 
 gr = Graph()
 mode  = 0
