@@ -46,6 +46,38 @@ def dijsktra(graph, initial):
   return visited, path
 
 
+def inconv(gr,a,b,c):
+  dist1, path1 = dijsktra(gr, a)
+  dist2, path2 = dijsktra(gr, b)
+
+  inconvAC = dist1[c]
+  inconvAB = dist1[b]
+  inconvBC = dist2[c]
+  
+  inconvTotal = (inconvAB + inconvBC) / inconvAC
+  return inconvTotal
+
+''''
+#example inconv usage
+grEx = Graph()
+
+#A
+grEx.add_node(0)
+#B
+grEx.add_node(1)
+#C
+grEx.add_node(2)
+
+#AC
+grEx.add_edge(0, 2, 2)
+#AB
+grEx.add_edge(0, 1, 2)
+#BC
+grEx.add_edge(1, 2, 2)
+
+print(inconv(grEx,0,1,2))
+''''
+
 gr = Graph()
 mode  = 0
 for line in fileinput.input():
