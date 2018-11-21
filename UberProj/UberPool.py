@@ -46,14 +46,15 @@ def dijsktra(graph, initial):
   return visited, path
 
 
-def inconv(gr,a,b,c):
+def inconv(gr,a,c,b):
   dist1, path1 = dijsktra(gr, a)
   dist2, path2 = dijsktra(gr, b)
 
   inconvAC = dist1[c]
   inconvAB = dist1[b]
   inconvBC = dist2[c]
-  
+
+
   inconvTotal = (inconvAB + inconvBC) / inconvAC
   return inconvTotal
 
@@ -72,8 +73,8 @@ def inconv2(gr, a, b, c, d):
     return inconvTotal
 
 def getTrip(gr, tripA, tripB, isRunning):
-    pass1 = tripA[0]
-    pass2 = tripB[0]
+    pass1 = tripA[0][0]
+    pass2 = tripB[0][0]
 
     nodeA = tripA[1][0]
     nodeB = tripA[1][1]
@@ -81,16 +82,16 @@ def getTrip(gr, tripA, tripB, isRunning):
     nodeC = tripB[1][0]
     nodeD = tripB[1][1]
 
-    incA1 = inconv(gr, nodeA,nodeB,nodeC)
+    incA1 = inconv(gr, nodeA, nodeB, nodeC)
     incA2 = inconv2(gr, nodeA, nodeB, nodeC, nodeD)
     incB1 = inconv(gr, nodeC, nodeD, nodeA)
     incB2 = inconv2(gr, nodeC, nodeD, nodeA, nodeB)
 
     if isRunning:
         if incA1 < 1.4 and incA1 <= incA2:
-            return [[pass1, pass2], [nodeA, nodeB, nodeC, nodeD], True]
+            return [[[pass1, pass2], [nodeA, nodeB, nodeC, nodeD], True]]
         elif incA2 < 1.4:
-            return [[pass1, pass2], [nodeA, nodeC, nodeD, nodeB], True]
+            return [[[pass1, pass2], [nodeA, nodeC, nodeD, nodeB], True]]
         else:
             list = []
             list.append([[pass1], [nodeA, nodeB], isRunning])
@@ -98,13 +99,13 @@ def getTrip(gr, tripA, tripB, isRunning):
             return list
 
     if incA1 < 1.4 and incA1 <= incA2 and incA1 <= incB1 and incA1 <= incB2:
-        return [[pass1, pass2], [nodeA, nodeB, nodeC, nodeD], True]
+        return [[[pass1, pass2], [nodeA, nodeB, nodeC, nodeD], True]]
     elif incA2 < 1.4 and incA2 <= incB1 and incA2 <= incB2:
-        return [[pass1, pass2], [nodeA, nodeC, nodeD, nodeB], True]
+        return [[[pass1, pass2], [nodeA, nodeC, nodeD, nodeB], True]]
     elif incB1 < 1.4 and incB1 <= incB2:
-        return [[pass1, pass2], [nodeC, nodeA, nodeD, nodeB], True]
+        return [[[pass1, pass2], [nodeC, nodeA, nodeD, nodeB], True]]
     elif incB2 < 1.4:
-        return [[pass1, pass2], [nodeC, nodeA, nodeB, nodeD], True]
+        return [[[pass1, pass2], [nodeC, nodeA, nodeB, nodeD], True]]
     else:
         list = []
         list.append([[pass1], [nodeA, nodeB], isRunning])
@@ -113,19 +114,16 @@ def getTrip(gr, tripA, tripB, isRunning):
 
 def findTrips(gr, trips):
     newTrips = trips
-    size = len(trips)
     i = 0
     j = 0
-    while i < size:
-        while j < size:
+    while i < len(trips):
+        while j < len(trips):
             if i == j:
                 j += 1
             else:
                 tripA = newTrips[i]
                 tripB = newTrips[j]
 
-                print tripA
-                print tripB
                 if len(tripA[0]) > 1:
                     j += 1
                 elif tripB[2]:
@@ -138,6 +136,8 @@ def findTrips(gr, trips):
                     newTrips.extend(calc_trip)
         j = 0
         i += 1
+
+    return newTrips
 
 ''''
 #example inconv usage
@@ -192,7 +192,7 @@ for line in fileinput.input():
             trips.append(node)
             count += 1
         else:
-            node3 = float(comp[2])
+            node3 = int(comp[2])
             node = []
             passa = []
             paths = []
@@ -205,4 +205,22 @@ for line in fileinput.input():
             trips.append(node)
             count += 1
 
-print findTrips(gr,trips)
+results = findTrips(gr, trips)
+
+for result in results:
+
+    perc = ""
+    for per in result[1]:
+        perc = perc + str(per) + " "
+
+    if len(result[0]) > 1:
+        pass1 = result[0][0]
+        pass2 = result[0][1]
+
+        out = "passageiros " + str(pass1) + " e " + str(pass2) + " percurso: " + perc
+        print out
+    else:
+        pass1 = result[0][0]
+
+        out = "passageiro " + str(pass1) + " percurso: " + perc
+        print out
