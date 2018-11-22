@@ -46,7 +46,7 @@ def dijsktra(graph, initial):
   return visited, path
 
 
-def inconv(gr,a,c,b):
+def inconv(gr,a,b,c):
   dist1, path1 = dijsktra(gr, a)
   dist2, path2 = dijsktra(gr, b)
 
@@ -82,14 +82,16 @@ def getTrip(gr, tripA, tripB, isRunning):
     nodeC = tripB[1][0]
     nodeD = tripB[1][1]
 
-    incA1 = inconv(gr, nodeA, nodeB, nodeC)
+    print nodeA, nodeB, nodeC, nodeD
+
+    incA1 = inconv(gr, nodeA, nodeC, nodeB)
     incA2 = inconv2(gr, nodeA, nodeB, nodeC, nodeD)
-    incB1 = inconv(gr, nodeC, nodeD, nodeA)
+    incB1 = inconv(gr, nodeC, nodeA, nodeD)
     incB2 = inconv2(gr, nodeC, nodeD, nodeA, nodeB)
 
     if isRunning:
         if incA1 < 1.4 and incA1 <= incA2:
-            return [[[pass1, pass2], [nodeA, nodeB, nodeC, nodeD], True]]
+            return [[[pass1, pass2], [nodeA, nodeC, nodeB, nodeD], True]]
         elif incA2 < 1.4:
             return [[[pass1, pass2], [nodeA, nodeC, nodeD, nodeB], True]]
         else:
@@ -99,7 +101,7 @@ def getTrip(gr, tripA, tripB, isRunning):
             return list
 
     if incA1 < 1.4 and incA1 <= incA2 and incA1 <= incB1 and incA1 <= incB2:
-        return [[[pass1, pass2], [nodeA, nodeB, nodeC, nodeD], True]]
+        return [[[pass1, pass2], [nodeA, nodeC, nodeB, nodeD], True]]
     elif incA2 < 1.4 and incA2 <= incB1 and incA2 <= incB2:
         return [[[pass1, pass2], [nodeA, nodeC, nodeD, nodeB], True]]
     elif incB1 < 1.4 and incB1 <= incB2:
@@ -130,7 +132,7 @@ def findTrips(gr, trips):
                     j += 1
                 else:
                     calc_trip = getTrip(gr, tripA, tripB, tripA[2])
-
+                    print calc_trip
                     del newTrips[j]
                     del newTrips[i]
                     newTrips.extend(calc_trip)
@@ -166,6 +168,10 @@ count = 1
 trips = []
 for line in fileinput.input():
     comp = line.split(" ")
+
+    if comp[0] == '':
+        del comp[0]
+
     if line == "\n":
         mode += 1
         continue
@@ -197,8 +203,8 @@ for line in fileinput.input():
             passa = []
             paths = []
             passa.append(count)
-            paths.append(node2)
             paths.append(node3)
+            paths.append(node2)
             node.append(passa)
             node.append(paths)
             node.append(True)
