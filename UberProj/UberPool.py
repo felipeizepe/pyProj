@@ -118,7 +118,7 @@ def findTrips(gr, trips):
     newTrips = trips
     i = 0
     j = 0
-    while i < len(trips):
+    while i < len(trips) - 1:
         while j < len(trips):
             if i == j:
                 j += 1
@@ -136,8 +136,8 @@ def findTrips(gr, trips):
                     del newTrips[j]
                     del newTrips[i]
                     newTrips.extend(calc_trip)
-                    if j == i - 1:
-                        break
+                    if j == len(trips) - 1:
+                        j += 1
         j = 0
         i += 1
 
