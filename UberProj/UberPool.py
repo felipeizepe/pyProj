@@ -105,9 +105,9 @@ def getTrip(gr, tripA, tripB, isRunning):
     elif incA2 < 1.4 and incA2 <= incB1 and incA2 <= incB2:
         return [[[pass1, pass2], [nodeA, nodeC, nodeD, nodeB], True]]
     elif incB1 < 1.4 and incB1_2 < 1.4 and incB1 <= incB2:
-        return [[[pass1, pass2], [nodeC, nodeA, nodeD, nodeB], True]]
+        return [[[pass2, pass1], [nodeC, nodeA, nodeD, nodeB], True]]
     elif incB2 < 1.4:
-        return [[[pass1, pass2], [nodeC, nodeA, nodeB, nodeD], True]]
+        return [[[pass2, pass1], [nodeC, nodeA, nodeB, nodeD], True]]
     else:
         list = []
         list.append([[pass1], [nodeA, nodeB], isRunning])
