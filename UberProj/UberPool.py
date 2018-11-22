@@ -50,6 +50,11 @@ def inconv(gr,a,b,c):
   dist1, path1 = dijsktra(gr, a)
   dist2, path2 = dijsktra(gr, b)
 
+  print a,b,c
+
+  if not b in dist1 or not c in dist1 or not c in dist2:
+      return 2
+
   inconvAC = dist1[c]
   inconvAB = dist1[b]
   inconvBC = dist2[c]
@@ -62,6 +67,9 @@ def inconv2(gr, a, b, c, d):
     dist1, path1 = dijsktra(gr, a)
     dist2, path2 = dijsktra(gr, d)
     dist3, path2 = dijsktra(gr, c)
+
+    if not b in dist1 or not c in dist1 or not b in dist2 or not d in dist3:
+        return 2
 
     inconvAB = dist1[b]
     inconvAC = dist1[c]
@@ -132,7 +140,6 @@ def findTrips(gr, trips):
                     j += 1
                 else:
                     calc_trip = getTrip(gr, tripA, tripB, tripA[2])
-                    print calc_trip
                     del newTrips[j]
                     del newTrips[i]
                     newTrips.extend(calc_trip)
