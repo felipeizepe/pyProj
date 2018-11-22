@@ -50,8 +50,6 @@ def inconv(gr,a,b,c):
   dist1, path1 = dijsktra(gr, a)
   dist2, path2 = dijsktra(gr, b)
 
-  print a,b,c
-
   if not b in dist1 or not c in dist1 or not c in dist2:
       return 2
 
@@ -89,7 +87,6 @@ def getTrip(gr, tripA, tripB, isRunning):
     nodeC = tripB[1][0]
     nodeD = tripB[1][1]
 
-
     incA1 = inconv(gr, nodeA, nodeC, nodeB)
     incA1_2 = inconv(gr, nodeC, nodeB, nodeD)
     incA2 = inconv2(gr, nodeA, nodeB, nodeC, nodeD)
@@ -98,9 +95,9 @@ def getTrip(gr, tripA, tripB, isRunning):
     incB2 = inconv2(gr, nodeC, nodeD, nodeA, nodeB)
 
     if isRunning:
-        if incA1 < 1.4 and incA1_2 < 1.4 and incA1 <= incA2:
+        if incA1 <= 1.4 and incA1_2 <= 1.4 and incA1 <= incA2:
             return [[[pass1, pass2], [nodeA, nodeC, nodeB, nodeD], True]]
-        elif incA2 < 1.4:
+        elif incA2 <= 1.4:
             return [[[pass1, pass2], [nodeA, nodeC, nodeD, nodeB], True]]
         else:
             list = []
@@ -108,13 +105,13 @@ def getTrip(gr, tripA, tripB, isRunning):
             list.append([[pass2], [nodeC, nodeD], False])
             return list
 
-    if incA1 < 1.4 and incA1_2 < 1.4 and incA1 <= incA2 and incA1 <= incB1 and incA1 <= incB2:
+    if incA1 <= 1.4 and incA1_2 <= 1.4 and incA1 <= incA2 and incA1 <= incB1 and incA1 <= incB2:
         return [[[pass1, pass2], [nodeA, nodeC, nodeB, nodeD], True]]
-    elif incA2 < 1.4 and incA2 <= incB1 and incA2 <= incB2:
+    elif incA2 <= 1.4 and incA2 <= incB1 and incA2 <= incB2:
         return [[[pass1, pass2], [nodeA, nodeC, nodeD, nodeB], True]]
-    elif incB1 < 1.4 and incB1_2 < 1.4 and incB1 <= incB2:
+    elif incB1 <= 1.4 and incB1_2 <= 1.4 and incB1 <= incB2:
         return [[[pass2, pass1], [nodeC, nodeA, nodeD, nodeB], True]]
-    elif incB2 < 1.4:
+    elif incB2 <= 1.4:
         return [[[pass2, pass1], [nodeC, nodeA, nodeB, nodeD], True]]
     else:
         list = []
@@ -126,8 +123,9 @@ def findTrips(gr, trips):
     newTrips = trips
     i = 0
     j = 0
+    passed = 0
     while i < len(trips) - 1:
-        while j < len(trips):
+        while j < len(trips) and passed < 2:
             if i == j:
                 j += 1
             else:
@@ -143,8 +141,12 @@ def findTrips(gr, trips):
                     del newTrips[j]
                     del newTrips[i]
                     newTrips.extend(calc_trip)
+                    print calc_trip
+                    print newTrips
                     if j == len(trips) - 1:
-                        j += 1
+                        passed += 1
+
+                    j -= 1
         j = 0
         i += 1
 
