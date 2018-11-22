@@ -141,8 +141,6 @@ def findTrips(gr, trips):
                     del newTrips[j]
                     del newTrips[i]
                     newTrips.extend(calc_trip)
-                    print calc_trip
-                    print newTrips
                     if j == len(trips) - 1:
                         passed += 1
 
